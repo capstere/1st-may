@@ -42,7 +42,7 @@ body.falling::before {
   animation: starsFall 30s linear forwards;
 }
 @keyframes starsFall {
-  to { transform: translateY(-100vh); }
+  to { transform: translateY(-70vh); }
 }
 
 /* 5) Dölj‑klass */
@@ -53,14 +53,14 @@ body.falling::before {
 /* 6) Nedräknare – centrerad upptill */
 #countdown {
   position: absolute;
-  top: 100%;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 2rem;
   color: #ffe81f;
   z-index: 1000;
 }
-
+ 
 /* 7) Startknapp */
 #start-button {
   position: absolute;
@@ -99,10 +99,10 @@ h1 {
   position: absolute;
   width: 2.6em;
   left: 50%;
-  top: 100%;
+  top: 50%;
   margin-left: -1.3em;
-  font-size: 50em;
-  line-height: 3.5em;
+  font-size: 20em;
+  line-height: 0.8em;
   letter-spacing: -0.05em;
   color: #000;
   text-shadow:
@@ -140,6 +140,7 @@ h1 {
   top: 0; left: 0; right: 0; bottom: 60%;
   background: linear-gradient(to bottom,
     rgba(0,0,0,1) 0%, transparent 100%);
+  pointer-events: none;
 }
 #titlecontent {
   position: absolute;
@@ -150,8 +151,12 @@ h1 {
   0%   { top: 100%; }
   100% { top: -170%; }
 }
-#titles p { margin: 0.8em 0; }
-#titles p.center { text-align: center; }
+#titles p {
+  margin: 0.8em 0;
+}
+#titles p.center {
+  text-align: center;
+}
 
 /* 11) Planetbild – långsam in-fall (30s sync) */
 #planet-effect {
