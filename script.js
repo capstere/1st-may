@@ -24,10 +24,9 @@ function updateCountdown() {
 
 // 2) Huvudsekvens – körs när man klickar på startknappen
 async function startSequence() {
-  // Dölj startknappen
   document.getElementById("start-button").style.display = "none";
 
-  // Visa intro-text
+  // Visa intro‑text
   const introText = document.getElementById("start-text");
   introText.classList.remove("hidden");
   await sleep(2100);
@@ -37,49 +36,44 @@ async function startSequence() {
   logo.classList.remove("hidden");
   await sleep(500);
 
-  // Spela upp bakgrundsmusik
+  // Spela bakgrundsmusik
   const bg = document.getElementById("bgMusic");
   bg.muted = false;
   bg.play().catch(() => {});
 
-  // Visa crawl-texten
+  // Visa crawl‑text
   const titles = document.getElementById("titles");
   titles.classList.remove("hidden");
   await sleep(34000);
   titles.style.display = "none";
 
-  // Stjärnorna faller
+  // Starta stjärnfall + planetin-fall
   document.body.classList.add("falling");
-
-  // Visa planeten med transition
   const planet = document.getElementById("planet-effect");
   planet.classList.remove("hidden");
-  // separera visning från animation
   requestAnimationFrame(() => {
     planet.classList.add("active-planet");
   });
 
-  // Vänta innan finala elementen
-  await sleep(8000);
+  // Vänta 30s tills båda animationerna är klara
+  await sleep(30000);
 
   // Visa finala titeln och knapparna
   const finalElems = document.getElementById("final-elements");
   finalElems.classList.remove("hidden");
 }
 
-// 3) Sätt upp ljudknapparna
+// 3) Ljudknappar
 function setupSoundButtons() {
   document.querySelectorAll(".hamburger-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const file = btn.dataset.sound;
-      if (file) {
-        new Audio(`assets/${file}`).play().catch(() => {});
-      }
+      if (file) new Audio(`assets/${file}`).play().catch(() => {});
     });
   });
 }
 
-// Initiera allt
+// Initiera nedräknare och bind start
 updateCountdown();
 document.getElementById("start-button").addEventListener("click", () => {
   setupSoundButtons();
