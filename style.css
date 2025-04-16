@@ -50,10 +50,10 @@ body.falling::before {
   display: none;
 }
 
-/* 6) Nedräknare */
+/* 6) Nedräknare – centrerad upptill */
 #countdown {
   position: absolute;
-  top: 10px;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   font-size: 2rem;
@@ -140,7 +140,6 @@ h1 {
   top: 0; left: 0; right: 0; bottom: 60%;
   background: linear-gradient(to bottom,
     rgba(0,0,0,1) 0%, transparent 100%);
-  pointer-events: none;
 }
 #titlecontent {
   position: absolute;
@@ -154,7 +153,7 @@ h1 {
 #titles p { margin: 0.8em 0; }
 #titles p.center { text-align: center; }
 
-/* 11) Planetbild med cinematic in‑fall */
+/* 11) Planetbild – långsam in-fall (30s sync) */
 #planet-effect {
   display: block;
   position: fixed;
@@ -164,7 +163,7 @@ h1 {
   width: 100%;
   opacity: 0;
   z-index: 900;
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  transition: opacity 30s ease-out, transform 30s ease-out;
 }
 #planet-effect.active-planet {
   opacity: 1;
@@ -227,14 +226,8 @@ h1 {
   white-space: nowrap;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-.hamburger-btn span:nth-child(1) {
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-  z-index: 2;
-}
-.hamburger-btn span:nth-child(2) {
-  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-  z-index: 2;
-}
+.hamburger-btn span:nth-child(1) { clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); z-index: 2; }
+.hamburger-btn span:nth-child(2) { clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); z-index: 2; }
 .hamburger-btn span:nth-child(3) {
   transform: translate(-50%, -50%) scaleY(0);
   transform-origin: center center;
@@ -247,12 +240,8 @@ h1 {
 }
 
 /* 17) Hover‑effekter */
-.hamburger-btn:hover span:nth-child(1) {
-  transform: translate(-50%, calc(-50% - 0.8em));
-}
-.hamburger-btn:hover span:nth-child(2) {
-  transform: translate(-50%, calc(-50% + 0.8em));
-}
+.hamburger-btn:hover span:nth-child(1) { transform: translate(-50%, calc(-50% - 0.8em)); }
+.hamburger-btn:hover span:nth-child(2) { transform: translate(-50%, calc(-50% + 0.8em)); }
 .hamburger-btn:hover span:nth-child(3) {
   transform: translate(-50%, -50%) scaleY(1);
   opacity: 1;
