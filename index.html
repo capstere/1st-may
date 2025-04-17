@@ -1,75 +1,56 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Return of the JESP</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Preload assets -->
+  <link rel="preload" href="assets/bg-stars.jpeg" as="image">
+  <link rel="preload" href="assets/planet.png" as="image">
+  <link rel="preload" href="assets/intro.mp3" as="audio">
 </head>
 <body>
-  <!-- 1) Nedräknings-timer -->
+  <!-- Nedräknings-timer -->
   <div id="countdown"></div>
 
-  <!-- 2) Startknapp -->
+  <!-- Startknapp -->
   <button id="start-button">MAY THE JESP BE WITH YOU</button>
 
-  <!-- 3) Intro-text -->
+  <!-- Intro-text -->
   <p id="start-text" class="hidden">
-    long time ago, in a cepheid far,<br> far away….
+    Long time ago, in a Cepheid far,<br> far away…
   </p>
 
-  <!-- 4) SPAR WARS-logga -->
-  <h1 class="hidden">SPAR WARS</h1>
+  <!-- SPAR WARS-logga -->
+  <h1 id="logo" class="hidden">SPAR WARS</h1>
 
-  <!-- 5) Crawl-text (3D-scroll) -->
+  <!-- Crawl-text (kortad) -->
   <div id="titles" class="hidden">
     <div id="titlecontent">
-      <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
-      <p>It is a period of vendor war.</p>
-      <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
-      <p>After vanishing without a trace, JESP was secretly captured by the sinister GURULAB.</p>
-      <p>The once-promising Jedi has now escaped and returned to his home planet of BROWSKIS.</p>
-      <p>There, alongside the fierce Jedi Knights VDAO and ELS, young JESP must once again board the Milliliter FALCON Tube, a vessel fully equipped for the mission ahead.</p>
-      <p>But JESP has no plan, no understanding of the objective, and confuses hyperspace with emotional growth.</p>
-      <p>Meanwhile, Senator TUKA, obsessed with locating JESP, has dispatched thousands of remote probes into the far reaches of space to uncover his ignorance.</p>
-      <p>Unaware of the trials to come, JESP must now UNLEARN all that he once tried to learn.</p>
-      <p>The fate of the galaxy may hang in the balance… but mostly, everyone just wants to know how he made it this far.</p>
+      <p class="center">Episode TBD<br>RETURN OF THE JESP</p>
+      <p>The Jedi Knight known only as JESP must UNLEARN everything he once learned.</p>
+      <p>The fate of the galaxy hangs in the balance…</p>
     </div>
   </div>
 
-  <!-- 6) Planetbild -->
-  <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet">
+  <!-- Planetbild -->
+  <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet BROWSKIS">
 
-  <!-- 7) Finala element: titel + fyra "hamburger"-knappar -->
+  <!-- Finala element -->
   <div id="final-elements" class="hidden">
     <div id="main-title">RETURN OF THE JESP</div>
     <div id="buttons">
-      <button class="hamburger-btn" data-sound="sound1.mp3">
-        <span>TEXT KNAPP 1</span>
-        <span>TEXT KNAPP 1</span>
-        <span>EXTRA KNAPP 1</span>
-      </button>
-      <button class="hamburger-btn" data-sound="sound2.mp3">
-        <span>TEXT KNAPP 2</span>
-        <span>TEXT KNAPP 2</span>
-        <span>EXTRA KNAPP 2</span>
-      </button>
-      <button class="hamburger-btn" data-sound="sound3.mp3">
-        <span>TEXT KNAPP 3</span>
-        <span>TEXT KNAPP 3</span>
-        <span>EXTRA KNAPP 3</span>
-      </button>
-      <button class="hamburger-btn" data-sound="sound4.mp3">
-        <span>TEXT KNAPP 4</span>
-        <span>TEXT KNAPP 4</span>
-        <span>EXTRA KNAPP 4</span>
-      </button>
+      <button class="hamburger-btn" data-sound="sound1.mp3">KNAPP 1</button>
+      <button class="hamburger-btn" data-sound="sound2.mp3">KNAPP 2</button>
+      <button class="hamburger-btn" data-sound="sound3.mp3">KNAPP 3</button>
+      <button class="hamburger-btn" data-sound="sound4.mp3">KNAPP 4</button>
     </div>
   </div>
 
-  <!-- 8) Bakgrundsmusik -->
+  <!-- Bakgrundsmusik -->
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
 
-  <!-- 9) JavaScript -->
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
