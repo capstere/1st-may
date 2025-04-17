@@ -1,11 +1,26 @@
-function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+// Väntfunktion
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
 
-function updateCountdown(){
+// Dölj/visa helpers
+function hide(id) {
+  document.getElementById(id).classList.add('hidden');
+}
+function show(id) {
+  document.getElementById(id).classList.remove('hidden');
+}
+
+// Uppdatera nedräknare
+function updateCountdown() {
   const el = document.getElementById("countdown"),
         target = new Date("2025-05-01T00:00:00");
-  (function tick(){
+  (function tick() {
     const diff = target - new Date();
-    if(diff <= 0){ el.textContent = "The day has arrived!"; return; }
+    if (diff <= 0) {
+      el.textContent = "The day has arrived!";
+      return;
+    }
     const d = Math.floor(diff / 864e5),
           h = Math.floor(diff / 36e5 % 24),
           m = Math.floor(diff / 6e4 % 60),
@@ -15,39 +30,60 @@ function updateCountdown(){
   })();
 }
 
-async function startSequence(){
+// Huvudsekvens
+async function startSequence() {
+  // Dölj start-knapp och spela musik
   hide("start-button");
-  
-  // Musik direkt vid första klick
-  document.getElementById("bgMusic").play().catch(()=>{});
+  document.getElementById("bgMusic").play().catch(() => {});
 
-  show("start-text"); await sleep(2000); hide("start-text");
-  show("logo"); await sleep(4000); hide("logo");
+  // Intro-text
+  const intro = document.getElementById("start-text");
+  show("start-text");
+  intro.classList.add("animate-intro");
+  await sleep(2000);
+  intro.classList.remove("animate-intro");
+  hide("start-text");
 
-  show("titles"); await sleep(15000); hide("titles");
+  // Logo
+  const logo = document.getElementById("logo");
+  show("logo");
+  logo.classList.add("animate-logo");
+  await sleep(4000);
+  logo.classList.remove("animate-logo");
+  hide("logo");
 
-  // Synkroniserad start av bakgrund och planet (exakt samtidig start)
+  // Crawl-text
+  const titles = document.getElementById("titles");
+  show("titles");
+  titles.classList.add("animate-scroll");
+  await sleep(15000);
+  titles.classList.remove("animate-scroll");
+  hide("titles");
+
+  // Synkroniserat stjärnfall + planet
   document.body.classList.add("falling");
   const planet = document.getElementById("planet-effect");
   show("planet-effect");
-  requestAnimationFrame(() => planet.classList.add("active-planet"));
+  requestAnimationFrame(() => {
+    planet.classList.add("active-planet");
+  });
+  await sleep(15000);
 
-  await sleep(15000); // Exakt planet- och stjärnfalls-duration
-  
+  // Slutskärm
   show("final-elements");
 }
 
-function hide(id){document.getElementById(id).classList.add("hidden");}
-function show(id){document.getElementById(id).classList.remove("hidden");}
-
-function setupSoundButtons(){
+// Sätt upp ljudknapparna
+function setupSoundButtons() {
   document.querySelectorAll(".hamburger-btn").forEach(btn => {
-    btn.onclick = () => new Audio(`assets/${btn.dataset.sound}`).play().catch(()=>{});
+    btn.onclick = () => {
+      new Audio(`assets/${btn.dataset.sound}`).play().catch(() => {});
+    };
   });
 }
 
+// Initiera
 updateCountdown();
-
 document.getElementById("start-button").onclick = () => {
   setupSoundButtons();
   startSequence();
