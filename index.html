@@ -96,10 +96,10 @@
          2px -2px 0 #ff6,
         -2px  2px 0 #ff6,
          2px  2px 0 #ff6;
-      -webkit-text-stroke: 10px #ff6;  /* Ännu fetare gul kant */
+      -webkit-text-stroke: 15px #ff6;  /* Ännu fetare gul kant */
       opacity: 0;
       z-index: 1;
-      animation: logo 3s ease-out 0.5s forwards;
+      animation: logo 5s ease-out 0.5s forwards;
     }
     @keyframes logo {
       0% {
@@ -158,7 +158,7 @@
       animation: none;
     }
     #planet-effect.active-planet {
-      animation: planetRise 12s ease-out forwards;
+      animation: planetRise 13s ease-out forwards;
     }
     @keyframes planetRise {
       from {
@@ -166,7 +166,7 @@
         opacity: 0;
       }
       to {
-        transform: translateX(-50%) translateY(-1vh);
+        transform: translateX(-50%) translateY(-0.5vh);
         opacity: 1;
       }
     }
