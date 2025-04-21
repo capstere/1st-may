@@ -96,7 +96,7 @@
          2px -2px 0 #ff6,
         -2px  2px 0 #ff6,
          2px  2px 0 #ff6;
-      -webkit-text-stroke: 4px #ff6;  /* Fetare gul kant */
+      -webkit-text-stroke: 6px #ff6;  /* Ännu fetare gul kant */
       opacity: 0;
       z-index: 1;
       animation: logo 3s ease-out 0.5s forwards;
@@ -147,7 +147,7 @@
     #titles p { margin: 0.8em 0; }
     #titles p.center { text-align: center; }
 
-    /* --- Planetbild med lägre stopp och exakt samma tid --- */
+    /* --- Planetbild med lägre stopp (–2vh) och samma tid --- */
     #planet-effect {
       position: fixed;
       bottom: 0; left: 50%;
@@ -166,7 +166,7 @@
         opacity: 0;
       }
       to {
-        transform: translateX(-50%) translateY(-5vh); /* Lite lägre än tidigare */
+        transform: translateX(-50%) translateY(-2vh);
         opacity: 1;
       }
     }
@@ -244,17 +244,26 @@
     .hamburger-btn:hover span:nth-child(3) {
       transform: translate(-50%, -50%) scaleY(1);
       opacity: 1;
-      color: black; /* Ändrar inner-texten till svart vid hover */
+      color: black; /* Inner-text svart vid hover */
     }
   </style>
 </head>
 <body>
+  <!-- 1) Nedräknings-timer -->
   <div id="countdown"></div>
+
+  <!-- 2) Startknapp -->
   <button id="start-button">MAY THE JESP BE WITH YOU</button>
+
+  <!-- 3) Intro‑text -->
   <p id="start-text" class="hidden">
     long time ago, in a cepheid far,<br> far away….
   </p>
+
+  <!-- 4) SPAR WARS‑logga -->
   <h1 class="hidden">SPAR WARS</h1>
+
+  <!-- 5) Crawl‑text -->
   <div id="titles" class="hidden">
     <div id="titlecontent">
       <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
@@ -269,17 +278,33 @@
       <p>The fate of the galaxy may hang in the balance… but mostly, everyone just wants to know how he made it this far.</p>
     </div>
   </div>
+
+  <!-- 6) Planetbild -->
   <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet">
+
+  <!-- 7) Finala element -->
   <div id="final-elements" class="hidden">
     <div id="main-title">RETURN OF THE JESP</div>
     <div id="buttons">
-      <button class="hamburger-btn" data-sound="sound1.mp3"><span>J</span><span>J</span><span>believe</span></button>
-      <button class="hamburger-btn" data-sound="sound2.mp3"><span>E</span><span>E</span><span>faith</span></button>
-      <button class="hamburger-btn" data-sound="sound3.mp3"><span>S</span><span>S</span><span>trust</span></button>
-      <button class="hamburger-btn" data-sound="sound4.mp3"><span>P</span><span>P</span><span>win</span></button>
+      <button class="hamburger-btn" data-sound="sound1.mp3">
+        <span>J</span><span>J</span><span>believe</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound2.mp3">
+        <span>E</span><span>E</span><span>faith</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound3.mp3">
+        <span>S</span><span>S</span><span>trust</span>
+      </button>
+      <button class="hamburger-btn" data-sound="sound4.mp3">
+        <span>P</span><span>P</span><span>win</span>
+      </button>
     </div>
   </div>
+
+  <!-- 8) Bakgrundsmusik -->
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
+
+  <!-- 9) JavaScript -->
   <script>
     function sleep(ms) { return new Promise(res => setTimeout(res, ms)); }
 
@@ -304,29 +329,34 @@
     async function startSequence(){
       document.getElementById("start-button").style.display = "none";
 
+      // Intro
       const intro = document.getElementById("start-text");
       intro.classList.remove("hidden");
       await sleep(2100);
 
+      // SPAR WARS-logga
       const logo = document.querySelector("h1");
       logo.classList.remove("hidden");
       await sleep(500);
 
+      // Musik
       const bg = document.getElementById("bgMusic");
       bg.muted = false; bg.play().catch(() => {});
 
+      // Crawl
       const titles = document.getElementById("titles");
       titles.classList.remove("hidden");
       await sleep(17000);
       titles.style.display = "none";
 
+      // Stjärnor + planet
       document.body.classList.add("falling");
       const planet = document.getElementById("planet-effect");
       planet.classList.remove("hidden");
       planet.classList.add("active-planet");
 
+      // Final efter 6s
       await sleep(6000);
-
       document.getElementById("final-elements").classList.remove("hidden");
     }
 
