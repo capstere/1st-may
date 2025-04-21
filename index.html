@@ -138,7 +138,6 @@
     #titlecontent {
       position: absolute;
       top: 100%;
-      /* Här tog vi bort ”2s”‑fördröjningen så scroll startar direkt */
       animation: scroll 15s linear forwards;
     }
     @keyframes scroll {
@@ -303,35 +302,38 @@
     }
 
     async function startSequence(){
+      // Dölj startknapp
       document.getElementById("start-button").style.display = "none";
 
-      // Intro‑text
+      // 1) Visa SPAR WARS först
+      const logo = document.querySelector("h1");
+      logo.classList.remove("hidden");
+      // Vänta ut hela loggans animation (0.5s delay + 5s duration)
+      await sleep(5500);
+
+      // 2) Visa intro‑text
       const intro = document.getElementById("start-text");
       intro.classList.remove("hidden");
       await sleep(2100);
 
-      // SPAR WARS‑logga
-      const logo = document.querySelector("h1");
-      logo.classList.remove("hidden");
-      await sleep(500);
-
-      // Musik
+      // 3) Starta musik
       const bg = document.getElementById("bgMusic");
-      bg.muted = false; bg.play().catch(() => {});
+      bg.muted = false;
+      bg.play().catch(() => {});
 
-      // Crawl‑text (15s utan extra fördröjning)
+      // 4) Visa crawl‑text
       const titles = document.getElementById("titles");
       titles.classList.remove("hidden");
       await sleep(15000);
       titles.style.display = "none";
 
-      // Stjärnor + planet startar direkt efter crawlen
+      // 5) Direkt efter crawl: animera stjärnor + planet
       document.body.classList.add("falling");
       const planet = document.getElementById("planet-effect");
       planet.classList.remove("hidden");
       planet.classList.add("active-planet");
 
-      // Finala element efter ytterligare 6s
+      // 6) Vänta till final
       await sleep(6000);
       document.getElementById("final-elements").classList.remove("hidden");
     }
