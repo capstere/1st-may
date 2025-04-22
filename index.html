@@ -289,38 +289,46 @@
       })();
     }
 
-    async function startSequence(){
-      document.getElementById("start-button").style.display="none";
+async function startSequence(){
+  // Dölj startknapp
+  document.getElementById("start-button").style.display = "none";
 
-      // Intro-text
-      document.getElementById("start-text").classList.remove("hidden");
-      await sleep(3000);
+  // 1) Intro‑text
+  document.getElementById("start-text").classList.remove("hidden");
+  await sleep(3000);
 
-      // Visa loggan
-      document.querySelector("h1").classList.remove("hidden");
+  // 2) Logga + musik
+  document.querySelector("h1").classList.remove("hidden");
+  const bg = document.getElementById("bgMusic");
+  bg.muted = false;
+  bg.play().catch(()=>{});
 
-      // Starta musiken direkt när loggan dyker upp
-      const bg = document.getElementById("bgMusic");
-      bg.muted = false;
-      bg.play().catch(()=>{});
+  // 3) Extra fördröjning innan crawl
+  await sleep(5000);
 
-      await sleep(5000);    // +2s extra fördröjning innan crawl
-      titles.classList.remove("hidden");
+  // 4) Visa crawl‑text
+  const titles = document.getElementById("titles");
+  titles.classList.remove("hidden");
 
-      // Crawl
-      document.getElementById("titles").classList.remove("hidden");
-      await sleep(25000);
-      document.getElementById("titles").style.display="none";
+  // 5) Vänta tills det återstår 4s
+  const crawlDuration = 25000; // totala crawltiden
+  const offset        = 4000;  // starta stjärnor+planet 4s tidigt
+  await sleep(crawlDuration - offset); // väntar 21s
 
-      // Stjärnor + planet
-      document.body.classList.add("falling");
-      document.getElementById("planet-effect").classList.remove("hidden");
-      document.getElementById("planet-effect").classList.add("active-planet");
+  // 6) Stjärnor + planet
+  document.body.classList.add("falling");
+  const planet = document.getElementById("planet-effect");
+  planet.classList.remove("hidden");
+  planet.classList.add("active-planet");
 
-      // Finala element
-      await sleep(10000);
-      document.getElementById("final-elements").classList.remove("hidden");
-    }
+  // 7) Slutför crawlen
+  await sleep(offset);
+  titles.style.display = "none";
+
+  // 8) Finala element
+  await sleep(10000);
+  document.getElementById("final-elements").classList.remove("hidden");
+}
 
     updateCountdown();
     document.getElementById("start-button").addEventListener("click",()=>{
