@@ -19,8 +19,10 @@
       color: #ff6;
       overflow: hidden;
       position: relative;
-      perspective: 800px;  /* Djup för 3D-animationer */
-      background: url('assets/bg-stars.jpeg') no-repeat center top;  /* Fallback */
+      perspective: 800px;     /* Djup för 3D-animationer */
+
+      /* Fallback direkt på body, ifall pseudo-elementet inte laddas */
+      background: url('assets/bg-stars.jpeg') no-repeat center top;
       background-size: cover;
     }
 
@@ -29,7 +31,7 @@
       content: "";
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 200vh;  /* Dubbel höjd för scroll */
+      width: 100%; height: 200vh;          /* 200% höjd */
       background: url('assets/bg-stars.jpeg') no-repeat center top;
       background-size: cover;
       transform: translateY(0);
@@ -38,9 +40,7 @@
     body.falling::before {
       animation: starsFall 10s linear forwards;
     }
-    @keyframes starsFall {
-      to { transform: translateY(-30vh); }  /* Flytta ned bakgrund */
-    }
+    @keyframes starsFall { to { transform: translateY(-30vh); } }
 
     .hidden { display: none; }
 
@@ -48,13 +48,13 @@
     #countdown {
       position: absolute;
       top: 10px; left: 50%; transform: translateX(-50%);
-      font-size: 2rem; color: #ffe81f; z-index: 1000;
+      font-size: 2rem; color: #ffe81f;
+      z-index: 1000;
     }
 
     /* --- Startknapp w/ glow + shine --- */
     #start-button {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       font-size: 1.8em; padding: 20px 40px;
       background-color: #ffe81f; color: black;
       border: none; border-radius: 10px;
@@ -65,14 +65,13 @@
       overflow: hidden;
     }
     @keyframes button-glow {
-      0%,100% { box-shadow: 0 0 8px #ffe81f, 0 0 16px #ff6; }
-      50%     { box-shadow: 0 0 12px #ffe81f, 0 0 24px #ff6; }
+      0%,100% { box-shadow: 0 0 8px #ffe81f,0 0 16px #ff6; }
+      50%     { box-shadow: 0 0 12px #ffe81f,0 0 24px #ff6; }
     }
     #start-button:hover {
       transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 0 20px #ffe81f, 0 0 40px #ff6;
+      box-shadow: 0 0 20px #ffe81f,0 0 40px #ff6;
     }
-    /* Shine‑svep */
     #start-button::before {
       content: "";
       position: absolute; top: 0; left: -75%;
@@ -88,12 +87,9 @@
       position: relative; width: 16em; margin: 20% auto;
       font-size: 200%; font-weight: 400; color: #4ee;
       opacity: 0; z-index: 1;
-      animation: intro 3s ease-out forwards;  /* 3s längd */
+      animation: intro 3s ease-out forwards;
     }
-    @keyframes intro {
-      0%,90% { opacity: 1; }
-      100%   { opacity: 0; }
-    }
+    @keyframes intro { 0%,90%{opacity:1;}100%{opacity:0;} }
 
     /* --- SPAR WARS-logga --- */
     h1 {
@@ -101,15 +97,15 @@
       transform: translate(-50%,-50%) translateZ(0) scale(1);
       font-size:50em; line-height:0.8em; letter-spacing:-0.05em;
       color:#000;
-      text-shadow: -2px -2px 0 #ff6, 2px -2px 0 #ff6, -2px 2px 0 #ff6, 2px 2px 0 #ff6;
-      -webkit-text-stroke:18px #ffe81f;  /* Kantbredd */
+      text-shadow:-2px -2px 0 #ff6,2px -2px 0 #ff6,-2px 2px 0 #ff6,2px 2px 0 #ff6;
+      -webkit-text-stroke:18px #ffe81f;
       opacity:0; z-index:1;
-      animation: logo 6s ease-out 0.5s forwards;  /* 0.5s delay */
+      animation: logo 6s ease-out 0.5s forwards;
     }
     @keyframes logo {
-      0%   { transform: translate(-50%,-50%) translateZ(0) scale(1); opacity:1; }
-      50%  { opacity:1; }
-      100% { transform: translate(-50%,-50%) translateZ(-800px) scale(0.2); opacity:0; }
+      0%{transform:translate(-50%,-50%) translateZ(0) scale(1);opacity:1;}
+      50%{opacity:1;}
+      100%{transform:translate(-50%,-50%) translateZ(-800px) scale(0.2);opacity:0;}
     }
 
     /* --- Crawl-text --- */
@@ -121,17 +117,13 @@
     }
     #titles:after {
       content:""; position:absolute; top:0; left:0; right:0; bottom:60%;
-      background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);
+      background:linear-gradient(to bottom,rgba(0,0,0,1) 0%,transparent 100%);
       pointer-events:none;
     }
     #titlecontent {
-      position:absolute; top:100%;
-      animation: scroll 25s linear forwards;  /* 25s crawltid */
+      position:absolute; top:100%; animation: scroll 25s linear forwards;
     }
-    @keyframes scroll {
-      0%   { top:100%; }
-      100% { top:-170%; }
-    }
+    @keyframes scroll {0%{top:100%;}100%{top:-170%;}}
 
     /* --- Planetbild --- */
     #planet-effect {
@@ -140,33 +132,15 @@
       width:100%; opacity:0; z-index:900;
     }
     #planet-effect.active-planet {
-      animation: planetRise 10s ease-out forwards,
-                 planetSpin 60s linear infinite;
+      animation: planetRise 10s ease-out forwards, planetSpin 60s linear infinite;
     }
-    @keyframes planetRise {
-      from { transform:translateX(-50%) translateY(100%); opacity:0; }
-      to   { transform:translateX(-50%) translateY(0vh);   opacity:1; }
-    }
-    @keyframes planetSpin {
-      from { transform:translateX(-50%) translateY(0) rotate(0deg); }
-      to   { transform:translateX(-50%) translateY(0) rotate(360deg); }
-    }
+    @keyframes planetRise {from{transform:translateX(-50%) translateY(100%);opacity:0;}to{transform:translateX(-50%) translateY(0vh);opacity:1;}}
+    @keyframes planetSpin {from{transform:translateX(-50%) translateY(0) rotate(0deg);}to{transform:translateX(-50%) translateY(0) rotate(360deg);}}
 
     /* --- Final-elements --- */
-    #final-elements {
-      position:absolute; top:50%; left:50%;
-      transform:translate(-50%,-50%); text-align:center;
-      z-index:1050; opacity:0; transition:opacity 5s ease-in;
-    }
-    #final-elements:not(.hidden) {
-      opacity:1;
-      animation: finalBounce 0.8s ease-out forwards;
-    }
-    @keyframes finalBounce {
-      0%  { transform:translate(-50%,-60%) scale(0.8); opacity:0; }
-      60% { transform:translate(-50%,-45%) scale(1.05); opacity:1; }
-      100%{ transform:translate(-50%,-50%) scale(1); }
-    }
+    #final-elements {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);text-align:center;z-index:1050;opacity:0;transition:opacity 5s ease-in;}
+    #final-elements:not(.hidden) {opacity:1;animation:finalBounce 0.8s ease-out forwards;}
+    @keyframes finalBounce {0%{transform:translate(-50%,-60%) scale(0.8);opacity:0;}60%{transform:translate(-50%,-45%) scale(1.05);opacity:1;}100%{transform:translate(-50%,-50%) scale(1);}}
 
     /* --- Buttons hover text color --- */
     .hamburger-btn:hover span:nth-child(3) { color:black; }
@@ -175,12 +149,9 @@
 <body>
   <div id="countdown"></div>
   <button id="start-button">MAY THE JESP BE WITH YOU</button>
-  <p id="start-text" class="hidden">
-    A long time ago, in a cepheid far,<br> far away….
-  </p>
+  <p id="start-text" class="hidden">A long time ago, in a cepheid far,<br> far away….</p>
   <h1 class="hidden">SPAR WARS</h1>
-  <div id="titles" class="hidden">
-    <div id="titlecontent">
+  <div id="titles" class="hidden"><div id="titlecontent">
       <p class="center">Episode TBD<br />RETURN OF THE JESP</p>
       <p>It is a period of vendor war.</p>
       <p>The Jedi Knight known only as JESP has been summoned back from self-imposed exile by the FIRST ORDER.</p>
@@ -191,89 +162,67 @@
       <p>Meanwhile, Senator TUKA, obsessed with locating JESP, has dispatched thousands of remote probes into the far reaches of space.</p>
       <p>The time of truth has come and the fate of the galaxy may hang in the balance…</p>
       <p>Unaware of the trials to come, JESP must now UNLEARN all that he once tried to learn.</p>
-    </div>
-  </div>
+    </div></div>
   <img id="planet-effect" class="hidden" src="assets/planet.png" alt="Planet">
-  <div id="final-elements" class="hidden">
-    <div id="main-title">RETURN OF THE JESP</div>
-    <div id="buttons">
+  <div id="final-elements" class="hidden"><div id="main-title">RETURN OF THE JESP</div><div id="buttons">
       <button class="hamburger-btn" data-sound="sound1.mp3"><span>J</span><span>J</span><span>believe</span></button>
       <button class="hamburger-btn" data-sound="sound2.mp3"><span>E</span><span>E</span><span>faith</span></button>
       <button class="hamburger-btn" data-sound="sound3.mp3"><span>S</span><span>S</span><span>trust</span></button>
       <button class="hamburger-btn" data-sound="sound4.mp3"><span>P</span><span>P</span><span>win</span></button>
-    </div>
-  </div>
+    </div></div>
   <audio id="bgMusic" src="assets/intro.mp3" preload="auto"></audio>
   <script>
-    function sleep(ms){ return new Promise(res=>setTimeout(res,ms)); }
-
-    async function startSequence(){
-      document.getElementById("start-button").style.display="none";
-
-      // Intro-text
-      const intro = document.getElementById("start-text");
-      intro.classList.remove("hidden");
-      await sleep(3000); // intro i 3s
-
-      // SPAR WARS-logga
-      const logo = document.querySelector("h1");
-      logo.classList.remove("hidden");
-      await sleep(500);  // matcha CSS-delay
-
-      // Starta musik exakt vid logga
-      const bg = document.getElementById("bgMusic");
-      bg.muted = false;
-      bg.play().catch(()=>{});
-
-      // Crawl-text
-      const titles = document.getElementById("titles");
-      titles.classList.remove("hidden");
-      await sleep(25000); // crawl i 25s
-      titles.style.display = "none";
-
-      // Starta stjärnor + planet
-      document.body.classList.add("falling");
-      const planet = document.getElementById("planet-effect");
-      planet.classList.remove("hidden");
-      planet.classList.add("active-planet");
-
-      // Visa finala element efter 10s
-      await sleep(10000);
-      document.getElementById("final-elements").classList.remove("hidden");
-    }
+    // Väntfunktion
+    function sleep(ms){return new Promise(res=>setTimeout(res,ms));}
 
     function updateCountdown(){
-      const el = document.getElementById("countdown");
-      const target = new Date("2025-05-01T00:00:00");
+      const el=document.getElementById("countdown"), target=new Date("2025-05-01T00:00:00");
       (function tick(){
-        const diff = target - new Date();
-        if(diff<=0){
-          el.textContent="The day has arrived!";
-          return;
-        }
-        const d=Math.floor(diff/864e5),
-              h=Math.floor(diff/36e5%24),
-              m=Math.floor(diff/6e4%60),
-              s=Math.floor(diff/1e3%60);
-        el.textContent=`${d}d ${h}h ${m}m ${s}s`;
+        const diff=target-new Date();
+        if(diff<=0){el.textContent="The day has arrived!";return;}
+        const d=Math.floor(diff/864e5),h=Math.floor(diff/36e5%24),m=Math.floor(diff/6e4%60),s=Math.floor(diff/1e3%60);
+        el.textContent=${d}d ${h}h ${m}m ${s}s;
         setTimeout(tick,1000);
       })();
     }
 
+    async function startSequence(){
+      document.getElementById("start-button").style.display="none";
+      const intro=document.getElementById("start-text");
+      intro.classList.remove("hidden");
+      await sleep(3000);                     // Intro duration
+
+      const logo=document.querySelector("h1");
+      logo.classList.remove("hidden");     // Visa logga
+      await sleep(500);                      // Matcha CSS-delay
+
+      const bg=document.getElementById("bgMusic");
+      bg.muted=false; bg.play().catch(()=>{}); // Starta exakt vid logga
+
+      const titles=document.getElementById("titles");
+      titles.classList.remove("hidden");
+      await sleep(25000);                    // Crawl-tid
+      titles.style.display="none";
+
+      document.body.classList.add("falling");
+      const planet=document.getElementById("planet-effect");
+      planet.classList.remove("hidden");
+      planet.classList.add("active-planet");
+
+      await sleep(10000);                    // Tid till final
+      document.getElementById("final-elements").classList.remove("hidden");
+    }
+
     function setupSoundButtons(){
       document.querySelectorAll(".hamburger-btn").forEach(btn=>{
-        btn.addEventListener("click",()=>{
-          new Audio(`assets/${btn.dataset.sound}`).play().catch(()=>{});
-        });
+        btn.addEventListener("click",()=>new Audio(assets/${btn.dataset.sound}).play().catch(()=>{}));
       });
     }
 
     updateCountdown();
-    document.getElementById("start-button")
-      .addEventListener("click", ()=>{
-        setupSoundButtons();
-        startSequence();
-      });
+    document.getElementById("start-button").addEventListener("click",()=>{
+      setupSoundButtons(); startSequence();
+    });
   </script>
 </body>
 </html>
