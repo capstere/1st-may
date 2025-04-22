@@ -39,7 +39,7 @@
       /* Ändra 10s för att snabba upp eller sakta ner animationstiden */
     }
     @keyframes starsFall {
-      to { transform: translateY(-30vh); }
+      to { transform: translateY(-40vh); }
       /* -50vh: flytta halva höjden. Ändra värdet för mindre/mindre rörelse */
     }
 
@@ -326,7 +326,7 @@ async function startSequence(){
   titles.style.display = "none";
 
   // 8) Finala element
-  await sleep(10000);
+  await sleep(5000);
   document.getElementById("final-elements").classList.remove("hidden");
 }
 
