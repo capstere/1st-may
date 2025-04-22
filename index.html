@@ -70,7 +70,34 @@
       border-radius: 10px;     /* Rundade hörn */
       cursor: pointer;
       z-index: 1100;
-    }
+
+      /* Lägg till transition och initial glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+  box-shadow: 0 0 8px #ffe81f, 0 0 16px #ff6;
+  text-shadow: 0 0 4px #fff, 0 0 8px #ff6;
+
+        /* Pulsande glow‑animation */
+  animation: button-glow 2.5s infinite ease-in-out;
+}
+
+/* Hover: skala upp lite och maxa glöden */
+#start-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 20px #ffe81f, 0 0 40px #ff6;
+  text-shadow: 0 0 8px #fff, 0 0 16px #ff6;
+}
+
+    /* Keyframes för pulsande glow */
+@keyframes button-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px #ffe81f, 0 0 16px #ff6;
+    text-shadow: 0 0 4px #fff, 0 0 8px #ff6;
+  }
+  50% {
+    box-shadow: 0 0 12px #ffe81f, 0 0 24px #ff6;
+    text-shadow: 0 0 6px #fff, 0 0 12px #ff6;
+  }
+}
 
     /* --- Intro‑text ("long time ago...") --- */
     #start-text {
