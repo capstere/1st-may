@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Return of the JESP</title>
+
+  <!-- Preload för bakgrundsbild -->
+  <link rel="preload" href="assets/bg-stars.jpeg" as="image">
+
   <style>
     /* --- Reset --- */
     * { margin: 0; padding: 0; }
 
-    /* --- Basinställningar + perspektiv --- */
+    /* --- Basinställningar + perspektiv + fallback-bakgrund --- */
     body, html {
       width: 100%; height: 100%;
       font-family: "Droid Sans", arial, sans-serif;
@@ -15,8 +19,11 @@
       color: #ff6;
       overflow: hidden;
       position: relative;
-      background: none;       /* Ingen statisk bakgrund */
       perspective: 800px;     /* Djup för 3D-animationer */
+
+      /* Fallback direkt på body, ifall pseudo-elementet inte laddas */
+      background: url('assets/bg-stars.jpeg') no-repeat center top;
+      background-size: cover;
     }
 
     /* --- Animerad stjärnhimmel via pseudo-element --- */
@@ -24,43 +31,38 @@
       content: "";
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 200vh;           /* Dubbla viewport-höjden */
+      width: 100%; height: 200vh;          /* 200% höjd */
       background: url('assets/bg-stars.jpeg') no-repeat center top;
       background-size: cover;
       transform: translateY(0);
-      z-index: -1;                          /* Bakom allt */
+      z-index: -1;
     }
     body.falling::before {
-      animation: starsFall 10s linear forwards; /* Blygsam rörelse */
+      animation: starsFall 10s linear forwards;
     }
     @keyframes starsFall { to { transform: translateY(-30vh); } }
 
-    .hidden { display: none; }             /* Dölj-element */
+    .hidden { display: none; }
 
     /* --- Countdown --- */
     #countdown {
       position: absolute;
-      top: 10px; left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #ffe81f;
+      top: 10px; left: 50%; transform: translateX(-50%);
+      font-size: 2rem; color: #ffe81f;
       z-index: 1000;
     }
 
     /* --- Startknapp w/ glow + shine --- */
     #start-button {
-      position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       font-size: 1.8em; padding: 20px 40px;
       background-color: #ffe81f; color: black;
       border: none; border-radius: 10px;
       cursor: pointer; z-index: 1100;
-
-      /* Glow */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 0 8px #ffe81f, 0 0 16px #ff6;
+      transition: transform 0.3s, box-shadow 0.3s;
       animation: button-glow 2.5s infinite ease-in-out;
-      overflow: hidden; position: relative;
+      overflow: hidden;
     }
     @keyframes button-glow {
       0%,100% { box-shadow: 0 0 8px #ffe81f,0 0 16px #ff6; }
@@ -68,9 +70,8 @@
     }
     #start-button:hover {
       transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 0 20px #ffe81f, 0 0 40px #ff6;
+      box-shadow: 0 0 20px #ffe81f,0 0 40px #ff6;
     }
-    /* Shine-svep */
     #start-button::before {
       content: "";
       position: absolute; top: 0; left: -75%;
@@ -84,26 +85,27 @@
     /* --- Intro-text --- */
     #start-text {
       position: relative; width: 16em; margin: 20% auto;
-      font-size: 200%; font-weight: 400;
-      color: #4ee; opacity: 0; z-index: 1;
-      animation: intro 3s ease-out forwards; /* 3s duration */
+      font-size: 200%; font-weight: 400; color: #4ee;
+      opacity: 0; z-index: 1;
+      animation: intro 3s ease-out forwards;
     }
-    @keyframes intro { 0%,90% { opacity:1; } 100% { opacity:0; } }
+    @keyframes intro { 0%,90%{opacity:1;}100%{opacity:0;} }
 
     /* --- SPAR WARS-logga --- */
     h1 {
-      position: absolute; top: 50%; left: 50%;
+      position: absolute; top:50%; left:50%;
       transform: translate(-50%,-50%) translateZ(0) scale(1);
-      font-size: 50em; line-height:0.8em; letter-spacing:-0.05em;
-      color:#000; text-shadow: -2px -2px 0 #ff6,2px -2px 0 #ff6,-2px 2px 0 #ff6,2px 2px 0 #ff6;
-      -webkit-text-stroke: 18px #ffe81f;
+      font-size:50em; line-height:0.8em; letter-spacing:-0.05em;
+      color:#000;
+      text-shadow:-2px -2px 0 #ff6,2px -2px 0 #ff6,-2px 2px 0 #ff6,2px 2px 0 #ff6;
+      -webkit-text-stroke:18px #ffe81f;
       opacity:0; z-index:1;
-      animation: logo 6s ease-out 0.5s forwards; /* 6s anim + 0.5s delay */
+      animation: logo 6s ease-out 0.5s forwards;
     }
     @keyframes logo {
-      0%   { transform: translate(-50%,-50%) translateZ(0) scale(1); opacity:1; }
-      50%  { opacity:1; }
-      100% { transform: translate(-50%,-50%) translateZ(-800px) scale(0.2); opacity:0; }
+      0%{transform:translate(-50%,-50%) translateZ(0) scale(1);opacity:1;}
+      50%{opacity:1;}
+      100%{transform:translate(-50%,-50%) translateZ(-800px) scale(0.2);opacity:0;}
     }
 
     /* --- Crawl-text --- */
@@ -114,16 +116,14 @@
       transform-origin:50% 100%; transform:perspective(300px) rotateX(25deg);
     }
     #titles:after {
-      content:""; position:absolute;
-      top:0; left:0; right:0; bottom:60%;
+      content:""; position:absolute; top:0; left:0; right:0; bottom:60%;
       background:linear-gradient(to bottom,rgba(0,0,0,1) 0%,transparent 100%);
       pointer-events:none;
     }
     #titlecontent {
-      position:absolute; top:100%;
-      animation: scroll 25s linear forwards; /* 25s scroll */
+      position:absolute; top:100%; animation: scroll 25s linear forwards;
     }
-    @keyframes scroll { 0% { top:100%; } 100% { top:-170%; } }
+    @keyframes scroll {0%{top:100%;}100%{top:-170%;}}
 
     /* --- Planetbild --- */
     #planet-effect {
@@ -134,20 +134,13 @@
     #planet-effect.active-planet {
       animation: planetRise 10s ease-out forwards, planetSpin 60s linear infinite;
     }
-    @keyframes planetRise {
-      from { transform:translateX(-50%) translateY(100%); opacity:0; }
-      to   { transform:translateX(-50%) translateY(0vh);   opacity:1; }
-    }
-    @keyframes planetSpin { from{transform:translateX(-50%) translateY(0) rotate(0deg);} to{transform:translateX(-50%) translateY(0) rotate(360deg);} }
+    @keyframes planetRise {from{transform:translateX(-50%) translateY(100%);opacity:0;}to{transform:translateX(-50%) translateY(0vh);opacity:1;}}
+    @keyframes planetSpin {from{transform:translateX(-50%) translateY(0) rotate(0deg);}to{transform:translateX(-50%) translateY(0) rotate(360deg);}}
 
     /* --- Final-elements --- */
-    #final-elements {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      text-align:center; z-index:1050;
-      opacity:0; transition: opacity 5s ease-in;
-    }
-    #final-elements:not(.hidden) { opacity:1; animation: finalBounce 0.8s ease-out forwards; }
-    @keyframes finalBounce { 0%{transform:translate(-50%,-60%) scale(0.8);opacity:0;}60%{transform:translate(-50%,-45%) scale(1.05);opacity:1;}100%{transform:translate(-50%,-50%) scale(1);} }
+    #final-elements {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);text-align:center;z-index:1050;opacity:0;transition:opacity 5s ease-in;}
+    #final-elements:not(.hidden) {opacity:1;animation:finalBounce 0.8s ease-out forwards;}
+    @keyframes finalBounce {0%{transform:translate(-50%,-60%) scale(0.8);opacity:0;}60%{transform:translate(-50%,-45%) scale(1.05);opacity:1;}100%{transform:translate(-50%,-50%) scale(1);}}
 
     /* --- Buttons hover text color --- */
     .hamburger-btn:hover span:nth-child(3) { color:black; }
