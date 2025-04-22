@@ -133,7 +133,7 @@
       -webkit-text-stroke: 15px #ff6;  /* Ännu fetare gul kant */
       opacity: 0;
       z-index: 1;
-      animation: logo 6s ease-out 0.5s forwards;
+      animation: logo 6s ease-out 0.25s forwards;
       /* 0.5s: fördröjning innan animation startar */
     }
     @keyframes logo {
@@ -298,11 +298,14 @@
 
       // Logga
       document.querySelector("h1").classList.remove("hidden");
-      await sleep(500);
+      await sleep(250);
 
       // Musik
       const bg=document.getElementById("bgMusic");
       bg.muted=false;bg.play().catch(()=>{});
+
+      await sleep(5000);    // +2s extra fördröjning innan crawl
+      titles.classList.remove("hidden");
 
       // Crawl
       document.getElementById("titles").classList.remove("hidden");
