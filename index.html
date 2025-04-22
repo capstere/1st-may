@@ -133,7 +133,7 @@
       -webkit-text-stroke: 15px #ff6;  /* Ännu fetare gul kant */
       opacity: 0;
       z-index: 1;
-      animation: logo 6s ease-out 0.25s forwards;
+      animation: logo 6s ease-out 0s forwards;
       /* 0.5s: fördröjning innan animation startar */
     }
     @keyframes logo {
@@ -296,13 +296,13 @@
       document.getElementById("start-text").classList.remove("hidden");
       await sleep(3000);
 
-      // Logga
+      // Visa loggan
       document.querySelector("h1").classList.remove("hidden");
-      await sleep(250);
 
-      // Musik
-      const bg=document.getElementById("bgMusic");
-      bg.muted=false;bg.play().catch(()=>{});
+      // Starta musiken direkt när loggan dyker upp
+      const bg = document.getElementById("bgMusic");
+      bg.muted = false;
+      bg.play().catch(()=>{});
 
       await sleep(5000);    // +2s extra fördröjning innan crawl
       titles.classList.remove("hidden");
